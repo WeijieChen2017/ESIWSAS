@@ -124,12 +124,12 @@ class UnetMonaiChannelDO(nn.Module):
         num_res_units: int = 0,
         act: Union[Tuple, str] = Act.PRELU,
         norm: Union[Tuple, str] = Norm.INSTANCE,
-        dropout: float = 0.0,
+        neuron_dropout: float = 0.0,
         bias: bool = True,
         adn_ordering: str = "NDA",
         dimensions: Optional[int] = None,
         is_WDO: bool = False,
-        dropout_rate: float = 0.5,
+        channel_dropout: float = 0.5,
     ) -> None:
 
         super().__init__()
@@ -160,11 +160,11 @@ class UnetMonaiChannelDO(nn.Module):
         self.num_res_units = num_res_units
         self.act = act
         self.norm = norm
-        self.dropout = dropout
+        self.dropout = neuron_dropout
         self.bias = bias
         self.adn_ordering = adn_ordering
         self.is_WDO = is_WDO
-        self.dropout_rate = dropout_rate
+        self.dropout_rate = channel_dropout
 
 
         # UNet( 

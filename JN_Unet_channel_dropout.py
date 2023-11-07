@@ -203,10 +203,10 @@ model = UNet(
     num_res_units=6,
     act=Act.PRELU,
     norm=Norm.INSTANCE,
-    dropout=dropout_ratio,
+    neuron_dropout=0., # neuron dropout rate
     bias=True,
     is_WDO=is_WDO,
-    dropout_rate=dropout_rate,
+    channel_dropout=dropout_rate, # channel dropout rate
     ).to(device)
 
 # loss_function = DiceCELoss(to_onehot_y=True, softmax=True)
