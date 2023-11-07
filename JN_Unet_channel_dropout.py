@@ -187,7 +187,7 @@ train_ds = CacheDataset(
 )
 train_loader = DataLoader(
     train_ds, 
-    batch_size=1, 
+    batch_size=2, 
     shuffle=True, 
     num_workers=8, 
     pin_memory=True
