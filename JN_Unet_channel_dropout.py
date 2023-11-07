@@ -1,10 +1,10 @@
 import os
 
 model_hub = [
-    ["Seg532_Unet_channnel_dropoutRate_010" , 0.10, 1, [2], False], # 22GB 
-    ["Seg532_Unet_channnel_dropoutRate_010w", 0.10, 1, [3], True],  # 22GB 
-    ["Seg532_Unet_channnel_dropoutRate_020", 0.20, 1, [2], False],  # 22GB 
-    ["Seg532_Unet_channnel_dropoutRate_020", 0.20, 1, [3], True],  # 22GB --> This one
+    ["Seg532_Unet_channnel_dropoutRate_010" , 0.10, 1, [0], False], # 22GB 
+    ["Seg532_Unet_channnel_dropoutRate_010w", 0.10, 1, [0], True],  # 22GB 
+    ["Seg532_Unet_channnel_dropoutRate_020", 0.20, 1, [0], False],  # 22GB 
+    ["Seg532_Unet_channnel_dropoutRate_020", 0.20, 1, [0], True],  # 22GB --> This one
 ]
 
 print("Model index: ", end="")
@@ -181,7 +181,7 @@ val_files = load_decathlon_datalist(datasets, True, "validation")
 train_ds = CacheDataset(
     data=datalist,
     transform=train_transforms,
-    cache_num=8,
+    cache_num=16,
     cache_rate=1.0,
     num_workers=4,
 )
