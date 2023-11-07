@@ -18,7 +18,7 @@ model_idx = int(input()) - 1
 
 
 model_name = model_hub[model_idx][0]
-dropout_ratio = model_hub[model_idx][1]
+dropout_rate = model_hub[model_idx][1]
 reg_coef = model_hub[model_idx][2]
 GPU_available = model_hub[model_idx][3]
 is_WDO = model_hub[model_idx][4]
@@ -206,7 +206,7 @@ model = UNet(
     dropout=dropout_ratio,
     bias=True,
     is_WDO=is_WDO,
-    dropout_ratio=dropout_ratio,
+    dropout_rate=dropout_rate,
     ).to(device)
 
 # loss_function = DiceCELoss(to_onehot_y=True, softmax=True)
