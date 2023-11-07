@@ -264,8 +264,16 @@ class UnetMonaiChannelDO(nn.Module):
             # Determine the number of channels to drop
             num_channels_to_drop = int(self.dropout_rate * x.size(1))
 
+            num_channels_to_keep = x.size(1) - num_channels_to_drop
+            
+            if num_channels_to_keep < 1:
+                # raise ValueError("num_channels_to_drop must be less than the number of channels in x")
+                num_channels_to_keep = 1
+                
+            # Now find the threshold value
+            threshold = torch.kthvalue(keys, k=num_channels_to_keep, dim=1).values  # Assuming the keys tensor's channels are along dim=1
             # Find the threshold to cut off the largest k keys
-            threshold = torch.kthvalue(keys, k=x.size(1) - num_channels_to_drop).values
+            # threshold = torch.kthvalue(keys, k=x.size(1) - num_channels_to_drop).values
 
             # Create a mask for the channels that have keys above the threshold
             dropout_mask = (keys < threshold).float()
