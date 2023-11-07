@@ -1,3 +1,5 @@
+import os
+
 model_hub = [
     ["Seg532_Unet_channnel_dropoutRate_010" , 0.10, 1, [2], False], # 22GB 
     ["Seg532_Unet_channnel_dropoutRate_010w", 0.10, 1, [3], True],  # 22GB 
@@ -23,7 +25,7 @@ if not os.path.exists(train_dict["root_dir"]):
 train_dict["data_dir"] = "./data_dir/JN_BTCV/"
 train_dict["split_JSON"] = "dataset_532.json"
 
-import os
+
 
 gpu_list = ','.join(str(x) for x in train_dict["gpu_list"])
 os.environ['CUDA_VISIBLE_DEVICES'] = gpu_list
