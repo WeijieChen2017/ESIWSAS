@@ -189,19 +189,19 @@ class UnetMonaiChannelDO(nn.Module):
         #         down4 -- bottom --  up4
         # 1 -> (32, 64, 128, 256) -> 1
 
-        self.down1 = ResidualUnit(3, self.in_channels, self.channels[0]*2, self.strides[0],
+        self.down1 = ResidualUnit(3, self.in_channels, self.channels[0], self.strides[0],
                 kernel_size=self.kernel_size, subunits=self.num_res_units,
                 act=self.act, norm=self.norm, dropout=self.dropout,
                 bias=self.bias, adn_ordering=self.adn_ordering)
-        self.down2 = ResidualUnit(3, self.channels[0], self.channels[1]*2, self.strides[1],
+        self.down2 = ResidualUnit(3, self.channels[0], self.channels[1], self.strides[1],
                 kernel_size=self.kernel_size, subunits=self.num_res_units,
                 act=self.act, norm=self.norm, dropout=self.dropout,
                 bias=self.bias, adn_ordering=self.adn_ordering)
-        self.down3 = ResidualUnit(3, self.channels[1], self.channels[2]*2, self.strides[2],
+        self.down3 = ResidualUnit(3, self.channels[1], self.channels[2], self.strides[2],
                 kernel_size=self.kernel_size, subunits=self.num_res_units,
                 act=self.act, norm=self.norm, dropout=self.dropout,
                 bias=self.bias, adn_ordering=self.adn_ordering)
-        self.bottom = ResidualUnit(3, self.channels[2], self.channels[3]*2, 1,
+        self.bottom = ResidualUnit(3, self.channels[2], self.channels[3], 1,
                 kernel_size=self.kernel_size, subunits=self.num_res_units,
                 act=self.act, norm=self.norm, dropout=self.dropout,
                 bias=self.bias, adn_ordering=self.adn_ordering)
