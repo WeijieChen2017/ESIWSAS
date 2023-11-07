@@ -282,8 +282,8 @@ def train(global_step, train_loader, dice_val_best, global_step_best):
         step += 1
         x, y = (batch["image"].cuda(), batch["label"].cuda())
         logit_map = model(x)
-        logit_map_reg = model(x)
-        loss = loss_function_rec(logit_map, y)+loss_function_reg(logit_map, logit_map_reg) * reg_coef
+        # logit_map_reg = model(x)
+        loss = loss_function_rec(logit_map, y) #+loss_function_reg(logit_map, logit_map_reg) * reg_coef
         loss.backward()
         epoch_loss += loss.item()
         optimizer.step()
