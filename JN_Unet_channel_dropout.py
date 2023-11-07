@@ -1,11 +1,3 @@
-import os
-import torch
-# from model import UNet_Theseus as UNet
-from model import UnetMonaiChannelDO as UNet
-from monai.networks.layers.factories import Act, Norm
-
-# from model import UNETR_bdo as UNETR
-
 model_hub = [
     ["Seg532_Unet_channnel_dropoutRate_010" , 0.10, 1, [2], False], # 22GB 
     ["Seg532_Unet_channnel_dropoutRate_010w", 0.10, 1, [3], True],  # 22GB 
@@ -23,14 +15,32 @@ reg_coef = model_hub[model_idx][2]
 GPU_available = model_hub[model_idx][3]
 is_WDO = model_hub[model_idx][4]
 
-
 train_dict = {}
+train_dict["gpu_list"] = GPU_available
 train_dict["root_dir"] = "./project_dir/"+model_name+"/"
 if not os.path.exists(train_dict["root_dir"]):
     os.mkdir(train_dict["root_dir"])
 train_dict["data_dir"] = "./data_dir/JN_BTCV/"
 train_dict["split_JSON"] = "dataset_532.json"
-train_dict["gpu_list"] = GPU_available
+
+import os
+
+gpu_list = ','.join(str(x) for x in train_dict["gpu_list"])
+os.environ['CUDA_VISIBLE_DEVICES'] = gpu_list
+print('export CUDA_VISIBLE_DEVICES=' + gpu_list)
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+import torch
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# from model import UNet_Theseus as UNet
+from model import UnetMonaiChannelDO as UNet
+from monai.networks.layers.factories import Act, Norm
+
+# from model import UNETR_bdo as UNETR
+
+
+
+
 
 
 import numpy as np
@@ -200,11 +210,7 @@ val_loader = DataLoader(
 # _ = input()
 #--------------------------------------------------------------
 
-gpu_list = ','.join(str(x) for x in train_dict["gpu_list"])
-os.environ['CUDA_VISIBLE_DEVICES'] = gpu_list
-print('export CUDA_VISIBLE_DEVICES=' + gpu_list)
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 model = UNet( 
     spatial_dims=3,
