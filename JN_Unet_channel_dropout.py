@@ -1,7 +1,7 @@
 import os
 import torch
 # from model import UNet_Theseus as UNet
-from model import UNet_channelDO as UNet
+from model import UnetMonaiChannelDO as UNet
 from monai.networks.layers.factories import Act, Norm
 
 # from model import UNETR_bdo as UNETR
