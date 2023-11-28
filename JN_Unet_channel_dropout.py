@@ -4,7 +4,7 @@ model_hub = [
     ["Seg532_Unet_channnel_dropoutRate_010" , 0.10, 1, [0], False], # 22GB 
     ["Seg532_Unet_channnel_dropoutRate_010w", 0.10, 1, [0], True],  # 22GB 
     ["Seg532_Unet_channnel_dropoutRate_020", 0.20, 1, [0], False],  # 22GB 
-    ["Seg532_Unet_channnel_dropoutRate_020", 0.20, 1, [0], True],  # 22GB --> This one
+    ["Seg532_Unet_channnel_dropoutRate_020w", 0.20, 1, [0], True],  # 22GB --> This one
 ]
 
 print("Model index: ", end="")
