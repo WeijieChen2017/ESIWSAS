@@ -1,7 +1,7 @@
 import os
 # from monai.networks.nets.unet import UNet
-# from model import UNet_Theseus as UNet_neuron
-# from model import UnetMonaiChannelDO as UNet_channel
+from model import UnetMonaiNeuronDO as UNet_neuron
+from model import UnetMonaiChannelDO as UNet_channel
 from monai.networks.layers.factories import Act, Norm
 # from utils import iter_all_order
 from scipy.stats import mode
@@ -28,7 +28,7 @@ if not os.path.exists(test_dict["root_dir"]):
     os.mkdir(test_dict["root_dir"])
 test_dict["data_dir"] = "./data_dir/JN_BTCV/"
 test_dict["split_JSON"] = "dataset_532.json"
-test_dict["gpu_list"] = [0]
+test_dict["gpu_list"] = [7]
 test_dict["model_type"] = proj_list[proj_idx][1]
 test_dict["dropout_rate"] = proj_list[proj_idx][2]
 test_dict["eval_cnt"] = 128
