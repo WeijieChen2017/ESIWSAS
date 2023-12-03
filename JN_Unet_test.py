@@ -31,7 +31,7 @@ test_dict["split_JSON"] = "dataset_532.json"
 test_dict["gpu_list"] = [0]
 test_dict["model_type"] = proj_list[proj_idx][1]
 test_dict["dropout_rate"] = proj_list[proj_idx][2]
-test_dict["eval_cnt"] = 128
+test_dict["eval_cnt"] = 32
 
 import os
 
