@@ -157,7 +157,7 @@ with torch.no_grad():
                     sw_device=device, 
                     device=device,
                     )
-            print(y_hat.shape)
+            print(idx_bdo, y_hat.shape)
             # np.save("raw_output.npy", y_hat.cpu().detach().numpy())
             # exit()
             y_hat = nn.Softmax(dim=1)(y_hat).cpu().detach().numpy()
