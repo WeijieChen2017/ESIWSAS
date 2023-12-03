@@ -7,12 +7,12 @@ from monai.networks.layers.factories import Act, Norm
 from scipy.stats import mode
 
 proj_list = [
-    ["Seg532_Unet_neuron_dropoutRate_020", "neuron", 0.2],
-    ["Seg532_Unet_neuron_dropoutRate_010,", "neuron", 0.1],
+    # ["Seg532_Unet_neuron_dropoutRate_020", "neuron", 0.2],
+    # ["Seg532_Unet_neuron_dropoutRate_010,", "neuron", 0.1],
     ["Seg532_Unet_channnel_dropoutRate_010", "channel", 0.1],
     ["Seg532_Unet_channnel_dropoutRate_010w", "channel_w", 0.1],
     ["Seg532_Unet_channnel_dropoutRate_020", "channel", 0.2],
-    ["Seg532_Unet_channnel_dropoutRate_020w", "channel", 0.2],
+    # ["Seg532_Unet_channnel_dropoutRate_020w", "channel", 0.2],
 ]
 
 for proj_info in proj_list:
