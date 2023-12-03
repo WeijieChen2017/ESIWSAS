@@ -23,7 +23,7 @@ proj_idx = int(input()) - 1
 
 n_cls = 14
 test_dict = {}
-test_dict["root_dir"] = "./project_dir/"+proj_info[proj_idx][0]+"/"
+test_dict["root_dir"] = "./project_dir/"+proj_list[proj_idx][0]+"/"
 if not os.path.exists(test_dict["root_dir"]):
     os.mkdir(test_dict["root_dir"])
 test_dict["data_dir"] = "./data_dir/JN_BTCV/"
