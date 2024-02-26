@@ -149,10 +149,14 @@ for case_num in range(6):
     # case
     # model.eval()
     with torch.no_grad():
-        # print all keys in val_ds[case_num]
-        for key in val_ds[case_num].keys():
-            print(key)
-            
+        # save val_ds[case_num] for further analysis
+
+        np.save(
+            test_dict["root_dir"]+str(case_num)+"_val_ds.npy", 
+            val_ds[case_num],
+        )
+        exit(0)
+
 
 
         img_name = os.path.split(val_ds[case_num]["image_meta_dict"]["filename_or_obj"])[1]
