@@ -51,7 +51,7 @@ if not os.path.exists(test_dict["root_dir"]):
 # Setup for MONAI transforms, CacheDataset, and DataLoader
 val_transforms = Compose(
     [
-        LoadImaged(keys=["image", "label"]),
+        LoadImaged(keys=["image", "label"], image_only=False),
         EnsureChannelFirstd(keys=["image", "label"]),
         Orientationd(keys=["image", "label"], axcodes="RAS"),
         Spacingd(
@@ -150,14 +150,6 @@ for case_num in range(6):
     # model.eval()
     with torch.no_grad():
         # save val_ds[case_num] for further analysis
-
-        np.save(
-            test_dict["root_dir"]+str(case_num)+"_val_ds.npy", 
-            val_ds[case_num],
-        )
-        exit(0)
-
-
 
         img_name = os.path.split(val_ds[case_num]["image_meta_dict"]["filename_or_obj"])[1]
         img = val_ds[case_num]["image"]
