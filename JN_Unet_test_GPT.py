@@ -147,8 +147,8 @@ eval_cnt = test_dict["eval_cnt"]
 
 # Model inference adjustment for using DataLoader
 with torch.no_grad():
-    for test_data in val_loader:
-        img = test_data["image"]
-        label = test_data["label"]  # Not used in inference but loaded as part of the pipeline
-        # Your inference code adjusted for the DataLoader batched input...
-        print(test_data["image_meta_dict"]["filename_or_obj"])
+    for batch_data in val_loader:
+        img = batch_data["image"].to(device)
+        # Assuming the original filename is included in your dataset under 'image_meta_dict'
+        original_filenames = batch_data["image_meta_dict"]["filename_or_obj"]
+        print(original_filenames)
