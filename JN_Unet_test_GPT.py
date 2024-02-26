@@ -149,6 +149,12 @@ for case_num in range(6):
     # case
     # model.eval()
     with torch.no_grad():
+        # print all keys in val_ds[case_num]
+        for key in val_ds[case_num].keys():
+            print(key)
+            
+
+
         img_name = os.path.split(val_ds[case_num]["image_meta_dict"]["filename_or_obj"])[1]
         img = val_ds[case_num]["image"]
         label = val_ds[case_num]["label"]
