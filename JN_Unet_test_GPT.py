@@ -144,11 +144,58 @@ model.load_state_dict(pre_train_state)
 model.train()
 eval_cnt = test_dict["eval_cnt"]
 
+order_list_cnt = 128 # len(order_list)
+for case_num in range(6):
+    # case
+    # model.eval()
+    with torch.no_grad():
+        img_name = os.path.split(val_ds[case_num]["image_meta_dict"]["filename_or_obj"])[1]
+        img = val_ds[case_num]["image"]
+        label = val_ds[case_num]["label"]
+        val_inputs = torch.from_numpy(np.expand_dims(img, 1)).float().cuda()
+        val_labels = torch.from_numpy(np.expand_dims(label, 1)).float().cuda()
 
-# Model inference adjustment for using DataLoader
-with torch.no_grad():
-    for batch_data in val_loader:
-        img = batch_data["image"].to(device)
-        # Assuming the original filename is included in your dataset under 'image_meta_dict'
-        original_filenames = batch_data["image_meta_dict"]["filename_or_obj"]
-        print(original_filenames)
+        _, _, ax, ay, az = val_labels.size()
+        total_pixel = ax * ay * az
+        output_array = np.zeros((ax, ay, az, order_list_cnt))
+        for idx_bdo in range(order_list_cnt):
+            # print(idx_bdo)
+            # print(device)
+            val_outputs = sliding_window_inference(
+                val_inputs, [96, 96, 96], 8, model, overlap=1/8, device=device,
+                mode="gaussian", sigma_scale=0.125, padding_mode="constant", # , order=order_list[idx_bdo],
+            )
+            output_array[:, :, :, idx_bdo] = torch.argmax(val_outputs, dim=1).detach().cpu().numpy()[0, :, :, :]
+
+        val_mode = np.asarray(np.squeeze(mode(output_array, axis=3).mode), dtype=int)
+
+        for idx_diff in range(order_list_cnt):
+            output_array[:, :, :, idx_diff] -= val_mode
+        output_array = np.abs(output_array)
+        output_array[output_array>0] = 1
+
+        val_pct = np.sum(output_array, axis=3)/order_list_cnt
+
+        np.save(
+            test_dict["root_dir"]+img_name.replace(".nii.gz", "_x_RAS_1.5_1.5_2.0_vote.npy"), 
+            val_inputs.cpu().numpy()[0, 0, :, :, :],
+        )
+        print(test_dict["root_dir"]+img_name.replace(".nii.gz", "_x_RAS_1.5_1.5_2.0_vote.npy"))
+
+        np.save(
+            test_dict["root_dir"]+img_name.replace(".nii.gz", "_y_RAS_1.5_1.5_2.0_vote.npy"), 
+            val_labels.cpu().numpy()[0, 0, :, :, :],
+        )
+        print(test_dict["root_dir"]+img_name.replace(".nii.gz", "_y_RAS_1.5_1.5_2.0_vote.npy"))
+
+        np.save(
+            test_dict["root_dir"]+img_name.replace(".nii.gz", "_z_RAS_1.5_1.5_2.0_vote.npy"), 
+            val_mode,
+        )
+        print(test_dict["root_dir"]+img_name.replace(".nii.gz", "_z_RAS_1.5_1.5_2.0_vote.npy"))
+
+        np.save(
+            test_dict["root_dir"]+img_name.replace(".nii.gz", "_pct_RAS_1.5_1.5_2.0_vote.npy"), 
+            val_pct,
+        )
+        print(test_dict["root_dir"]+img_name.replace(".nii.gz", "_pct_RAS_1.5_1.5_2.0_vote.npy"))
