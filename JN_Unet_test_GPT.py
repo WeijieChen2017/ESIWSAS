@@ -31,8 +31,10 @@ proj_list = [
     ["Seg532_Unet_neuron_dropoutRate_010,", "neuron", 0.1],
 ]
 
-for proj_info in proj_list:
-    print(proj_info[0])
+# Print the project list and select the project with index
+for idx, proj_info in enumerate(proj_list):
+    print(idx+1, proj_info[0])
+
 
 print("Project index: ", end="")
 proj_idx = int(input()) - 1
