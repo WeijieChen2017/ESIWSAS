@@ -144,7 +144,7 @@ model.load_state_dict(pre_train_state)
 model.train()
 eval_cnt = test_dict["eval_cnt"]
 
-order_list_cnt = 128 # len(order_list)
+order_list_cnt = 32 # len(order_list)
 for case_num in range(6):
     # case
     # model.eval()
