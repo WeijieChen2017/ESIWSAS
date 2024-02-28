@@ -62,8 +62,8 @@ for idx_proj, proj_info in enumerate(proj_list):
     std_dice = np.std(dice_proj, axis=0)
     for i in range(dice_proj.shape[0]):
         print("Dice score for class", i, "is", mean_dice[i], "+/-", std_dice[i])
-        # write to txt file as well
-        with open("dice_score.txt", "a") as f:
+        # write to txt file in the folder of the project
+        with open("./project_dir/" + proj_info[0] + "/dice_score.txt", "w") as f:
             f.write("Dice score for class " + str(i) + " is " + str(mean_dice[i]) + "+/-" + str(std_dice[i]) + "\n")
 
     print()
