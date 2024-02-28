@@ -1,8 +1,8 @@
 proj_list = [
     ["Seg532_Unet_channnel_dropoutRate_010"],
-    # ["Seg532_Unet_channnel_dropoutRate_020"],
-    # ["Seg532_Unet_neuron_dropoutRate_020"],
-    # ["Seg532_Unet_neuron_dropoutRate_010"],
+    ["Seg532_Unet_channnel_dropoutRate_020"],
+    ["Seg532_Unet_neuron_dropoutRate_020"],
+    ["Seg532_Unet_neuron_dropoutRate_010"],
 ]
 
 img_files = [
@@ -15,6 +15,7 @@ img_files = [
 ]
 
 import numpy as np
+from sklearn.metrics import confusion_matrix
 
 for idx_proj, proj_info in enumerate(proj_list):
     
@@ -31,7 +32,26 @@ for idx_proj, proj_info in enumerate(proj_list):
         data_y = np.load(path_y, allow_pickle=True)
         data_z = np.load(path_z, allow_pickle=True)
 
-        # print unique values
-        print("--->", img_name, "y", np.unique(data_y))
-        print("--->", img_name, "z", np.unique(data_z))
+        # # print datashape
+        # print("--->", img_name, "y", data_y.shape)
+        # print("--->", img_name, "z", data_z.shape)
+
+        # # print unique values
+        # print("--->", img_name, "y", np.unique(data_y))
+        # print("--->", img_name, "z", np.unique(data_z))
+
+        # convert both y and z to int
+        data_y = data_y.astype(int)
+        data_z = data_z.astype(int)
+
+        # compute confusion matrix
+        cm = confusion_matrix(data_y.flatten(), data_z.flatten())
+
+        # compute the dice coefficient for each class
+        dice = np.zeros((cm.shape[0],))
+        for i in range(cm.shape[0]):
+            dice[i] = 2*cm[i,i] / (np.sum(cm[i,:]) + np.sum(cm[:,i]))
+            print("Dice score for class", i, "in", img_name, "is", dice[i])
+
+
     print()
