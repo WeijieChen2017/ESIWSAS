@@ -61,7 +61,7 @@ for idx_proj, proj_info in enumerate(proj_list):
     # print the mean and std dice score for the project on each class
     mean_dice = np.mean(dice_proj, axis=0)
     std_dice = np.std(dice_proj, axis=0)
-    for i in range(dice_proj.shape[0]):
+    for i in range(n_class):
         print("Dice score for class", i, "is", mean_dice[i], "+/-", std_dice[i])
         # write to txt file in the folder of the project
         with open("./project_dir/" + proj_info[0] + "/dice_score.txt", "w") as f:
