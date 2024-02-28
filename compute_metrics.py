@@ -19,6 +19,11 @@ n_img = len(img_files)
 
 import numpy as np
 from sklearn.metrics import confusion_matrix
+# write to excel file
+import xlsxwriter
+
+# new excel file
+workbook = xlsxwriter.Workbook('dice_score.xlsx')
 
 for idx_proj, proj_info in enumerate(proj_list):
     
@@ -66,5 +71,17 @@ for idx_proj, proj_info in enumerate(proj_list):
         # write to txt file in the folder of the project
         with open("./project_dir/" + proj_info[0] + "/dice_score.txt", "w") as f:
             f.write("Dice score for class " + str(i) + " is " + str(mean_dice[i]) + "+/-" + str(std_dice[i]) + "\n")
-
+    
+    # write to excel file, each project is a sheet
+    worksheet = workbook.add_worksheet(proj_info[0])
+    worksheet.write(0, 0, "Class")
+    worksheet.write(0, 1, "Mean Dice")
+    worksheet.write(0, 2, "Std Dice")
+    for i in range(n_class):
+        worksheet.write(i+1, 0, i)
+        worksheet.write(i+1, 1, mean_dice[i])
+        worksheet.write(i+1, 2, std_dice[i])
+    
     print()
+
+workbook.close()
