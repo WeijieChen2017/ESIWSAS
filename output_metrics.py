@@ -100,7 +100,8 @@ for idx_proj, proj_info in enumerate(proj_list):
         print(f"Loaded sheet: {sheet_name}")
         
         # Process data from df_old and append to new_data
-        for idx_class in range(n_class):
+        for i in range(n_class):
+            idx_class = i + 1
             # Assuming the structure of df_old, adjust indices as necessary
             curr_class_mean = df_old.iloc[idx_class, 2]  # Adjust indices based on actual structure
             curr_class_std = df_old.iloc[idx_class, 3]  # Adjust indices based on actual structure
