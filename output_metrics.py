@@ -41,6 +41,7 @@ workbook_old = xlsxwriter.Workbook('dice_score.xlsx')
 for idx_proj, proj_info in enumerate(proj_list):
     print(idx_proj+1, proj_info[0])
     worksheet_old = workbook_old.get_worksheet_by_name(abbrev_proj_list[idx_proj])
+    print(worksheet_old)
     
     worksheet_new.write(0, 0, "class")
     worksheet_new.write(0, 1, "project")
@@ -51,14 +52,14 @@ for idx_proj, proj_info in enumerate(proj_list):
     for idx_class in range(n_class):
         worksheet_new.write(idx_class+1, 0, idx_class)
         worksheet_new.write(idx_class+1, 1, abbrev_proj_list[idx_proj])
-        curr_class_mean =worksheet_old.cell(idx_class+1, 2).value
-        curr_class_std =worksheet_old.cell(idx_class+1, 3).value
+        curr_class_mean = worksheet_old.cell(idx_class+1, 2).value
+        curr_class_std = worksheet_old.cell(idx_class+1, 3).value
         worksheet_new.write(idx_class+1, 2, curr_class_mean)
         worksheet_new.write(idx_class+1, 3, curr_class_std)
         curr_output_str = f"{1:3f}±{2:3f}".format(curr_class_mean, curr_class_std)
         worksheet_new.write(idx_class+1, 4, curr_output_str)
 
     print("Project ", abbrev_proj_list[idx_proj], " is done.")
-    
+
 workbook_new.close()
 workbook_old.close()
