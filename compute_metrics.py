@@ -27,8 +27,8 @@ for idx_proj, proj_info in enumerate(proj_list):
     for idx_img, img_name in enumerate(img_files):
         print(idx_img+1, img_name)
 
-        path_y = "./results/moved_files_Nov5/" + proj_info[0] + "_" + img_name + "_y_RAS_1.5_1.5_2.0_vote.npy"
-        path_z = "./results/moved_files_Nov5/" + proj_info[0] + "_" + img_name + "_z_RAS_1.5_1.5_2.0_vote.npy"
+        path_y = "./project_dir/" + proj_info[0] + "_" + img_name + "_y_RAS_1.5_1.5_2.0_vote.npy"
+        path_z = "./project_dir/" + proj_info[0] + "_" + img_name + "_z_RAS_1.5_1.5_2.0_vote.npy"
 
         data_y = np.load(path_y, allow_pickle=True)
         data_z = np.load(path_z, allow_pickle=True)
