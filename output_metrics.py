@@ -117,8 +117,8 @@ for idx_proj, proj_info in enumerate(abbrev_proj_list):
             }, ignore_index=True)
 
         # add overall mean and std
-        overall_mean = df_old["mean"].mean()
-        overall_std = df_old["std"].mean()
+        overall_mean = df_old.iloc[n_class, 1]
+        overall_std = df_old.iloc[n_class, 2]
         overall_output_str = f"{overall_mean:.3f}±{overall_std:.3f}"
         processed_data = processed_data.append({
             "class": "overall",
