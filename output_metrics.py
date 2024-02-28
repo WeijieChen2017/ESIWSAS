@@ -91,6 +91,10 @@ excel_path = 'dice_score.xlsx'
 # Create a new DataFrame for the processed data
 processed_data = pd.DataFrame(columns=["class", "project", "mean", "std", "output"])
 
+# write all sheet_name in the excel file
+sheet_names = pd.ExcelFile(excel_path).sheet_names
+print(sheet_names)
+
 for idx_proj, proj_info in enumerate(abbrev_proj_list):
     print(f"Loading sheet: {proj_info}")
     try:
