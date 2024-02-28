@@ -115,6 +115,18 @@ for idx_proj, proj_info in enumerate(abbrev_proj_list):
                 "std": curr_class_std,
                 "output": curr_output_str
             }, ignore_index=True)
+
+        # add overall mean and std
+        overall_mean = df_old["mean"].mean()
+        overall_std = df_old["std"].mean()
+        overall_output_str = f"{overall_mean:.3f}±{overall_std:.3f}"
+        processed_data = processed_data.append({
+            "class": "overall",
+            "project": proj_info,
+            "mean": overall_mean,
+            "std": overall_std,
+            "output": overall_output_str
+        }, ignore_index=True)
             
         print(f"Loaded sheet: {proj_info}")
     except Exception as e:
