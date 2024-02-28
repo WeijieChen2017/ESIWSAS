@@ -5,6 +5,14 @@ proj_list = [
     ["Seg532_Unet_neuron_dropoutRate_010"],
 ]
 
+#abbreviate the project list
+abbrev_proj_list = [
+    "channel_010",
+    "channel_020",
+    "neuron_020",
+    "neuron_010",
+]
+
 img_files = [
     "img0026",
     "img0027",
@@ -73,7 +81,8 @@ for idx_proj, proj_info in enumerate(proj_list):
             f.write("Dice score for class " + str(i) + " is " + str(mean_dice[i]) + "+/-" + str(std_dice[i]) + "\n")
     
     # write to excel file, each project is a sheet
-    worksheet = workbook.add_worksheet(proj_info[0])
+    # worksheet = workbook.add_worksheet(proj_info[0])
+    worksheet = workbook.add_worksheet(abbrev_proj_list[0])
     worksheet.write(0, 0, "Class")
     worksheet.write(0, 1, "Mean Dice")
     worksheet.write(0, 2, "Std Dice")
