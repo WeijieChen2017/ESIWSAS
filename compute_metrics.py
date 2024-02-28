@@ -25,7 +25,7 @@ for idx_proj, proj_info in enumerate(proj_list):
     # then compute the dice score
 
     for idx_img, img_name in enumerate(img_files):
-        print(idx_img+1, img_name)
+        print("--->", img_name)
 
         path_y = "./project_dir/" + proj_info[0] + "/" + img_name + "_y_RAS_1.5_1.5_2.0_vote.npy"
         path_z = "./project_dir/" + proj_info[0] + "/" + img_name + "_z_RAS_1.5_1.5_2.0_vote.npy"
@@ -33,6 +33,6 @@ for idx_proj, proj_info in enumerate(proj_list):
         data_y = np.load(path_y, allow_pickle=True)
         data_z = np.load(path_z, allow_pickle=True)
 
-        print(img_name, data_y.shape, data_z.shape)
+        print("--->", img_name, data_y.shape, data_z.shape)
 
     print()
