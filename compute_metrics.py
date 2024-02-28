@@ -88,7 +88,7 @@ for idx_proj, proj_info in enumerate(proj_list):
     
     # write to excel file, each project is a sheet
     # worksheet = workbook.add_worksheet(proj_info[0])
-    worksheet = workbook.add_worksheet(abbrev_proj_list[0])
+    worksheet = workbook.add_worksheet(abbrev_proj_list[idx_proj])
     worksheet.write(0, 0, "Class")
     worksheet.write(0, 1, "Mean Dice")
     worksheet.write(0, 2, "Std Dice")
