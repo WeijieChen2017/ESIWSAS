@@ -74,11 +74,17 @@ for idx_proj, proj_info in enumerate(proj_list):
     # print the mean and std dice score for the project on each class
     mean_dice = np.mean(dice_proj, axis=0)
     std_dice = np.std(dice_proj, axis=0)
+    overall_mean = np.mean(mean_dice)
+    overall_std = np.std(mean_dice)
+    print("--->","Overall mean dice score is", overall_mean, "+/-", overall_std)
     for i in range(n_class):
-        print("Dice score for class", i, "is", mean_dice[i], "+/-", std_dice[i])
+        print("--->","Dice score for class", i, "is", mean_dice[i], "+/-", std_dice[i])
         # write to txt file in the folder of the project
         with open("./project_dir/" + proj_info[0] + "/dice_score.txt", "w") as f:
             f.write("Dice score for class " + str(i) + " is " + str(mean_dice[i]) + "+/-" + str(std_dice[i]) + "\n")
+    with open("./project_dir/" + proj_info[0] + "/dice_score.txt", "w") as f:
+        f.write("Overall mean dice score is " + str(overall_mean) + "+/-" + str(overall_std) + "\n")
+    f.close()
     
     # write to excel file, each project is a sheet
     # worksheet = workbook.add_worksheet(proj_info[0])
@@ -90,7 +96,10 @@ for idx_proj, proj_info in enumerate(proj_list):
         worksheet.write(i+1, 0, i)
         worksheet.write(i+1, 1, mean_dice[i])
         worksheet.write(i+1, 2, std_dice[i])
-    
+    worksheet.write(n_class+1, 0, "Overall")
+    worksheet.write(n_class+1, 1, overall_mean)
+    worksheet.write(n_class+1, 2, overall_std)
+
     print()
 
 workbook.close()
