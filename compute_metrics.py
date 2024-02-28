@@ -14,6 +14,9 @@ img_files = [
     "img0031",
 ]
 
+n_class = 14
+n_img = len(img_files)
+
 import numpy as np
 from sklearn.metrics import confusion_matrix
 
@@ -24,7 +27,7 @@ for idx_proj, proj_info in enumerate(proj_list):
     # load from img0026 to img0031 ending 
     # _y_RAS_1.5_1.5_2.0_vote.npy and _z_RAS_1.5_1.5_2.0_vote.npy
     # then compute the dice score
-    dice_proj = []
+    dice_proj = np.zeros((n_img, n_class))
 
     for idx_img, img_name in enumerate(img_files):
         path_y = "./project_dir/" + proj_info[0] + "/" + img_name + "_y_RAS_1.5_1.5_2.0_vote.npy"
@@ -52,11 +55,9 @@ for idx_proj, proj_info in enumerate(proj_list):
         dice = np.zeros((cm.shape[0],))
         for i in range(cm.shape[0]):
             dice[i] = 2*cm[i,i] / (np.sum(cm[i,:]) + np.sum(cm[:,i]))
-            dice_proj.append(dice[i])
+            dice_proj[idx_img, i] = dice[i]
             # print("Dice score for class", i, "in", img_name, "is", dice[i])
     
-    # convert to numpy array
-    dice_proj = np.array(dice_proj)
     # print the mean and std dice score for the project on each class
     mean_dice = np.mean(dice_proj, axis=0)
     std_dice = np.std(dice_proj, axis=0)
