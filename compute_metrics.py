@@ -1,8 +1,8 @@
 proj_list = [
     ["Seg532_Unet_channnel_dropoutRate_010"],
-    ["Seg532_Unet_channnel_dropoutRate_020"],
-    ["Seg532_Unet_neuron_dropoutRate_020"],
-    ["Seg532_Unet_neuron_dropoutRate_010"],
+    # ["Seg532_Unet_channnel_dropoutRate_020"],
+    # ["Seg532_Unet_neuron_dropoutRate_020"],
+    # ["Seg532_Unet_neuron_dropoutRate_010"],
 ]
 
 img_files = [
