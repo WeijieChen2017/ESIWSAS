@@ -35,7 +35,7 @@ workbook_new = xlsxwriter.Workbook('dice_score_3f.xlsx')
 worksheet_new = workbook_new.add_worksheet()
 
 # load old excel file
-workbook_old = xlsxwriter.Workbook('dice_score.xlsx')
+workbook_old = xlsxwriter.Reader('dice_score.xlsx')
 
 # load each worksheet from old excel file
 for idx_proj, proj_info in enumerate(proj_list):
