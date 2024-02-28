@@ -88,35 +88,34 @@ n_class = 14
 # Assuming 'dice_score.xlsx' is in the same directory as your script
 excel_path = 'dice_score.xlsx'
 
-# Prepare a DataFrame for the new data
-new_data = []
+# Create a new DataFrame for the processed data
+processed_data = pd.DataFrame(columns=["class", "project", "mean", "std", "output"])
 
-# Process each project
-for idx_proj, proj_info in enumerate(proj_list):
-    # Load specific worksheet from the old Excel file
-    sheet_name = abbrev_proj_list[idx_proj]
+for idx_proj, proj_info in enumerate(abbrev_proj_list):
+    print(f"Loading sheet: {proj_info}")
     try:
-        df_old = pd.read_excel(excel_path, sheet_name=sheet_name)
-        print(f"Loaded sheet: {sheet_name}")
+        # Load the specific worksheet
+        df_old = pd.read_excel('dice_score.xlsx', sheet_name=proj_info)
         
-        # Process data from df_old and append to new_data
-        for i in range(n_class):
-            idx_class = i + 1
-            # Assuming the structure of df_old, adjust indices as necessary
-            curr_class_mean = df_old.iloc[idx_class, 2]  # Adjust indices based on actual structure
-            curr_class_std = df_old.iloc[idx_class, 3]  # Adjust indices based on actual structure
+        # Process each class in the old worksheet
+        for idx_class in range(n_class):
+            curr_class_mean = df_old.iloc[idx_class, 2]
+            curr_class_std = df_old.iloc[idx_class, 3]
             curr_output_str = f"{curr_class_mean:.3f}±{curr_class_std:.3f}"
             
-            # Append row to new_data
-            new_data.append([idx_class, sheet_name, curr_class_mean, curr_class_std, curr_output_str])
-    
+            # Append the processed data to the new DataFrame
+            processed_data = processed_data.append({
+                "class": idx_class,
+                "project": proj_info,
+                "mean": curr_class_mean,
+                "std": curr_class_std,
+                "output": curr_output_str
+            }, ignore_index=True)
+            
+        print(f"Loaded sheet: {proj_info}")
     except Exception as e:
-        print(f"Error loading sheet: {sheet_name}, {e}")
+        print(f"Error loading sheet: {proj_info}, {e}")
 
-# Convert new_data to DataFrame
-df_new = pd.DataFrame(new_data, columns=["class", "project", "mean", "std", "output"])
-
-# Save the new DataFrame to an Excel file
-df_new.to_excel('dice_score_3f.xlsx', index=False)
-
+# Save the processed data to a new Excel file
+processed_data.to_excel('dice_score_3f.xlsx', index=False)
 print("New Excel file has been created: dice_score_3f.xlsx")
