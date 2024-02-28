@@ -99,7 +99,6 @@ for idx_proj, proj_info in enumerate(proj_list):
     worksheet.write(n_class+1, 0, "Overall")
     worksheet.write(n_class+1, 1, overall_mean)
     worksheet.write(n_class+1, 2, overall_std)
-
     print()
 
 workbook.close()
