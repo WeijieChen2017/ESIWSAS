@@ -103,8 +103,8 @@ for idx_proj, proj_info in enumerate(abbrev_proj_list):
         
         # Process each class in the old worksheet
         for idx_class in range(n_class):
-            curr_class_mean = df_old.iloc[idx_class, 2]
-            curr_class_std = df_old.iloc[idx_class, 3]
+            curr_class_mean = df_old.iloc[idx_class, 1]
+            curr_class_std = df_old.iloc[idx_class, 2]
             curr_output_str = f"{curr_class_mean:.3f}±{curr_class_std:.3f}"
             
             # Append the processed data to the new DataFrame
